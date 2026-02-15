@@ -62,3 +62,25 @@ export async function getUser (req, res, next) {
     user: req.user
   })
 }
+
+export async function patchUser (req, res, next) {
+  const { email, name } = req.body;
+
+  try {
+    const updated = await prisma.user.update({
+      where: {id: req.user.id},
+      data: { email, name },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        role: true,
+      },
+    });
+
+    return res.json({message: 'Profile updated', user: updated});
+  } catch(error) {
+    console.error(error);
+    next(error);
+  }
+}
