@@ -1,7 +1,7 @@
 import { body, validationResult } from 'express-validator';
 import { prisma } from '../../prisma/lib/prisma.js';
 
-async function checkEmail (value) {
+async function checkEmail(value) {
     const result = await prisma.user.findUnique({
         where: { email: value }
     });

@@ -3,22 +3,23 @@ import { postRegister, postLogIn, getUser, patchUser } from '../controllers/user
 import { requireAuth, requireGuest } from '../middlewares/authMiddleware.js';
 import { handleRegisterError, registerValidation } from '../middlewares/validators/register.js';
 import { handleLoginError, loginValidation } from '../middlewares/validators/login.js';
+import { handlePatchError, patchValidation } from '../middlewares/validators/patch.js'
 
 const userRouter = Router();
 
 userRouter.route('/register')
     .post(
+        requireGuest,
         registerValidation,
         handleRegisterError,
-        requireGuest,
         postRegister
     );
 
 userRouter.route('/login')
     .post(
+        requireGuest,
         loginValidation,
         handleLoginError,
-        requireGuest,
         postLogIn
     );
 
@@ -29,6 +30,16 @@ userRouter.route('/me')
     )
     .patch(
         requireAuth,
+        patchValidation,
+        handlePatchError,
+        requireAuth,
         patchUser
     )
+
+userRouter.route('/me/password')
+    .patch(
+        requireAuth,
+        
+    )
+
 export default userRouter;
