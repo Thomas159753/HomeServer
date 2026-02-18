@@ -35,6 +35,7 @@ model MeasurementLog {
   rightLeg Decimal? @db.Decimal(5, 2)
 
   recordedAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   note String?
   

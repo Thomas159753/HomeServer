@@ -2,9 +2,10 @@ import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
 import userRouter from './routes/userRoutes.js';
+import measurementRouter from './routes/measurementRoutes.js';
 import session from "express-session";
-import { PrismaSessionStore } from '@quixo3/prisma-session-store'
-import { prisma } from './prisma/lib/prisma.js'
+import { PrismaSessionStore } from '@quixo3/prisma-session-store';
+import { prisma } from './prisma/lib/prisma.js';
 import passport from './strategies/local.js';
 
 const PORT = process.env.PORT || 6833;
@@ -32,6 +33,8 @@ app.use(session({
 }))
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.use('/auth', userRouter);
+app.use("/stats", measurementRouter);
 
 app.listen(PORT, () => console.log(`Server is running on ${PORT}: http://localhost:${PORT}`))
