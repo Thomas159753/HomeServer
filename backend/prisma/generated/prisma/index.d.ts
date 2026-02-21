@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model MeasurementLog
+ * 
+ */
+export type MeasurementLog = $Result.DefaultSelection<Prisma.$MeasurementLogPayload>
+/**
  * Model Session
  * 
  */
@@ -169,6 +174,16 @@ export class PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.measurementLog`: Exposes CRUD operations for the **MeasurementLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MeasurementLogs
+    * const measurementLogs = await prisma.measurementLog.findMany()
+    * ```
+    */
+  get measurementLog(): Prisma.MeasurementLogDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.session`: Exposes CRUD operations for the **Session** model.
     * Example usage:
     * ```ts
@@ -227,8 +242,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 7.3.0
-   * Query Engine version: 9d6ad21cbbceab97458517b147a6a09ff43aa735
+   * Prisma Client JS version: 7.4.0
+   * Query Engine version: ab56fe763f921d033a6c195e7ddeb3e255bdbb57
    */
   export type PrismaVersion = {
     client: string
@@ -612,6 +627,7 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    MeasurementLog: 'MeasurementLog',
     Session: 'Session'
   };
 
@@ -628,7 +644,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "session"
+      modelProps: "user" | "measurementLog" | "session"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -703,6 +719,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      MeasurementLog: {
+        payload: Prisma.$MeasurementLogPayload<ExtArgs>
+        fields: Prisma.MeasurementLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MeasurementLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeasurementLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MeasurementLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeasurementLogPayload>
+          }
+          findFirst: {
+            args: Prisma.MeasurementLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeasurementLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MeasurementLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeasurementLogPayload>
+          }
+          findMany: {
+            args: Prisma.MeasurementLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeasurementLogPayload>[]
+          }
+          create: {
+            args: Prisma.MeasurementLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeasurementLogPayload>
+          }
+          createMany: {
+            args: Prisma.MeasurementLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MeasurementLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeasurementLogPayload>[]
+          }
+          delete: {
+            args: Prisma.MeasurementLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeasurementLogPayload>
+          }
+          update: {
+            args: Prisma.MeasurementLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeasurementLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.MeasurementLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MeasurementLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MeasurementLogUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeasurementLogPayload>[]
+          }
+          upsert: {
+            args: Prisma.MeasurementLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeasurementLogPayload>
+          }
+          aggregate: {
+            args: Prisma.MeasurementLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMeasurementLog>
+          }
+          groupBy: {
+            args: Prisma.MeasurementLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MeasurementLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MeasurementLogCountArgs<ExtArgs>
+            result: $Utils.Optional<MeasurementLogCountAggregateOutputType> | number
           }
         }
       }
@@ -889,6 +979,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    measurementLog?: MeasurementLogOmit
     session?: SessionOmit
   }
 
@@ -964,6 +1055,36 @@ export namespace Prisma {
    * Count Types
    */
 
+
+  /**
+   * Count Type UserCountOutputType
+   */
+
+  export type UserCountOutputType = {
+    measurementLogs: number
+  }
+
+  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    measurementLogs?: boolean | UserCountOutputTypeCountMeasurementLogsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     */
+    select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMeasurementLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MeasurementLogWhereInput
+  }
 
 
   /**
@@ -1184,6 +1305,8 @@ export namespace Prisma {
     passwordHash?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    measurementLogs?: boolean | User$measurementLogsArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1217,10 +1340,18 @@ export namespace Prisma {
   }
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "role" | "passwordHash" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    measurementLogs?: boolean | User$measurementLogsArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
-    objects: {}
+    objects: {
+      measurementLogs: Prisma.$MeasurementLogPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       email: string
@@ -1623,6 +1754,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    measurementLogs<T extends User$measurementLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$measurementLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeasurementLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1676,6 +1808,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -1694,6 +1830,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -1711,6 +1851,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which User to fetch.
      */
@@ -1760,6 +1904,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where?: UserWhereInput
@@ -1808,6 +1956,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which Users to fetch.
      */
     where?: UserWhereInput
@@ -1850,6 +2002,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to create a User.
      */
@@ -1898,6 +2054,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to update a User.
      */
@@ -1965,6 +2125,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * The filter to search for the User to update in case it exists.
      */
     where: UserWhereUniqueInput
@@ -1991,6 +2155,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter which User to delete.
      */
     where: UserWhereUniqueInput
@@ -2011,6 +2179,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.measurementLogs
+   */
+  export type User$measurementLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementLog
+     */
+    select?: MeasurementLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementLog
+     */
+    omit?: MeasurementLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementLogInclude<ExtArgs> | null
+    where?: MeasurementLogWhereInput
+    orderBy?: MeasurementLogOrderByWithRelationInput | MeasurementLogOrderByWithRelationInput[]
+    cursor?: MeasurementLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MeasurementLogScalarFieldEnum | MeasurementLogScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2022,6 +2214,1225 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MeasurementLog
+   */
+
+  export type AggregateMeasurementLog = {
+    _count: MeasurementLogCountAggregateOutputType | null
+    _avg: MeasurementLogAvgAggregateOutputType | null
+    _sum: MeasurementLogSumAggregateOutputType | null
+    _min: MeasurementLogMinAggregateOutputType | null
+    _max: MeasurementLogMaxAggregateOutputType | null
+  }
+
+  export type MeasurementLogAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    weight: Decimal | null
+    waist: Decimal | null
+    chest: Decimal | null
+    leftArm: Decimal | null
+    rightArm: Decimal | null
+    leftLeg: Decimal | null
+    rightLeg: Decimal | null
+  }
+
+  export type MeasurementLogSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    weight: Decimal | null
+    waist: Decimal | null
+    chest: Decimal | null
+    leftArm: Decimal | null
+    rightArm: Decimal | null
+    leftLeg: Decimal | null
+    rightLeg: Decimal | null
+  }
+
+  export type MeasurementLogMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    weight: Decimal | null
+    waist: Decimal | null
+    chest: Decimal | null
+    leftArm: Decimal | null
+    rightArm: Decimal | null
+    leftLeg: Decimal | null
+    rightLeg: Decimal | null
+    recordedAt: Date | null
+    updatedAt: Date | null
+    note: string | null
+  }
+
+  export type MeasurementLogMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    weight: Decimal | null
+    waist: Decimal | null
+    chest: Decimal | null
+    leftArm: Decimal | null
+    rightArm: Decimal | null
+    leftLeg: Decimal | null
+    rightLeg: Decimal | null
+    recordedAt: Date | null
+    updatedAt: Date | null
+    note: string | null
+  }
+
+  export type MeasurementLogCountAggregateOutputType = {
+    id: number
+    userId: number
+    weight: number
+    waist: number
+    chest: number
+    leftArm: number
+    rightArm: number
+    leftLeg: number
+    rightLeg: number
+    recordedAt: number
+    updatedAt: number
+    note: number
+    _all: number
+  }
+
+
+  export type MeasurementLogAvgAggregateInputType = {
+    id?: true
+    userId?: true
+    weight?: true
+    waist?: true
+    chest?: true
+    leftArm?: true
+    rightArm?: true
+    leftLeg?: true
+    rightLeg?: true
+  }
+
+  export type MeasurementLogSumAggregateInputType = {
+    id?: true
+    userId?: true
+    weight?: true
+    waist?: true
+    chest?: true
+    leftArm?: true
+    rightArm?: true
+    leftLeg?: true
+    rightLeg?: true
+  }
+
+  export type MeasurementLogMinAggregateInputType = {
+    id?: true
+    userId?: true
+    weight?: true
+    waist?: true
+    chest?: true
+    leftArm?: true
+    rightArm?: true
+    leftLeg?: true
+    rightLeg?: true
+    recordedAt?: true
+    updatedAt?: true
+    note?: true
+  }
+
+  export type MeasurementLogMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    weight?: true
+    waist?: true
+    chest?: true
+    leftArm?: true
+    rightArm?: true
+    leftLeg?: true
+    rightLeg?: true
+    recordedAt?: true
+    updatedAt?: true
+    note?: true
+  }
+
+  export type MeasurementLogCountAggregateInputType = {
+    id?: true
+    userId?: true
+    weight?: true
+    waist?: true
+    chest?: true
+    leftArm?: true
+    rightArm?: true
+    leftLeg?: true
+    rightLeg?: true
+    recordedAt?: true
+    updatedAt?: true
+    note?: true
+    _all?: true
+  }
+
+  export type MeasurementLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MeasurementLog to aggregate.
+     */
+    where?: MeasurementLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MeasurementLogs to fetch.
+     */
+    orderBy?: MeasurementLogOrderByWithRelationInput | MeasurementLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MeasurementLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MeasurementLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MeasurementLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MeasurementLogs
+    **/
+    _count?: true | MeasurementLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MeasurementLogAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MeasurementLogSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MeasurementLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MeasurementLogMaxAggregateInputType
+  }
+
+  export type GetMeasurementLogAggregateType<T extends MeasurementLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateMeasurementLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMeasurementLog[P]>
+      : GetScalarType<T[P], AggregateMeasurementLog[P]>
+  }
+
+
+
+
+  export type MeasurementLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MeasurementLogWhereInput
+    orderBy?: MeasurementLogOrderByWithAggregationInput | MeasurementLogOrderByWithAggregationInput[]
+    by: MeasurementLogScalarFieldEnum[] | MeasurementLogScalarFieldEnum
+    having?: MeasurementLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MeasurementLogCountAggregateInputType | true
+    _avg?: MeasurementLogAvgAggregateInputType
+    _sum?: MeasurementLogSumAggregateInputType
+    _min?: MeasurementLogMinAggregateInputType
+    _max?: MeasurementLogMaxAggregateInputType
+  }
+
+  export type MeasurementLogGroupByOutputType = {
+    id: number
+    userId: number
+    weight: Decimal | null
+    waist: Decimal | null
+    chest: Decimal | null
+    leftArm: Decimal | null
+    rightArm: Decimal | null
+    leftLeg: Decimal | null
+    rightLeg: Decimal | null
+    recordedAt: Date
+    updatedAt: Date
+    note: string | null
+    _count: MeasurementLogCountAggregateOutputType | null
+    _avg: MeasurementLogAvgAggregateOutputType | null
+    _sum: MeasurementLogSumAggregateOutputType | null
+    _min: MeasurementLogMinAggregateOutputType | null
+    _max: MeasurementLogMaxAggregateOutputType | null
+  }
+
+  type GetMeasurementLogGroupByPayload<T extends MeasurementLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MeasurementLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MeasurementLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MeasurementLogGroupByOutputType[P]>
+            : GetScalarType<T[P], MeasurementLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MeasurementLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    weight?: boolean
+    waist?: boolean
+    chest?: boolean
+    leftArm?: boolean
+    rightArm?: boolean
+    leftLeg?: boolean
+    rightLeg?: boolean
+    recordedAt?: boolean
+    updatedAt?: boolean
+    note?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["measurementLog"]>
+
+  export type MeasurementLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    weight?: boolean
+    waist?: boolean
+    chest?: boolean
+    leftArm?: boolean
+    rightArm?: boolean
+    leftLeg?: boolean
+    rightLeg?: boolean
+    recordedAt?: boolean
+    updatedAt?: boolean
+    note?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["measurementLog"]>
+
+  export type MeasurementLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    weight?: boolean
+    waist?: boolean
+    chest?: boolean
+    leftArm?: boolean
+    rightArm?: boolean
+    leftLeg?: boolean
+    rightLeg?: boolean
+    recordedAt?: boolean
+    updatedAt?: boolean
+    note?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["measurementLog"]>
+
+  export type MeasurementLogSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    weight?: boolean
+    waist?: boolean
+    chest?: boolean
+    leftArm?: boolean
+    rightArm?: boolean
+    leftLeg?: boolean
+    rightLeg?: boolean
+    recordedAt?: boolean
+    updatedAt?: boolean
+    note?: boolean
+  }
+
+  export type MeasurementLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "weight" | "waist" | "chest" | "leftArm" | "rightArm" | "leftLeg" | "rightLeg" | "recordedAt" | "updatedAt" | "note", ExtArgs["result"]["measurementLog"]>
+  export type MeasurementLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type MeasurementLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type MeasurementLogIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $MeasurementLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MeasurementLog"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      weight: Prisma.Decimal | null
+      waist: Prisma.Decimal | null
+      chest: Prisma.Decimal | null
+      leftArm: Prisma.Decimal | null
+      rightArm: Prisma.Decimal | null
+      leftLeg: Prisma.Decimal | null
+      rightLeg: Prisma.Decimal | null
+      recordedAt: Date
+      updatedAt: Date
+      note: string | null
+    }, ExtArgs["result"]["measurementLog"]>
+    composites: {}
+  }
+
+  type MeasurementLogGetPayload<S extends boolean | null | undefined | MeasurementLogDefaultArgs> = $Result.GetResult<Prisma.$MeasurementLogPayload, S>
+
+  type MeasurementLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MeasurementLogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MeasurementLogCountAggregateInputType | true
+    }
+
+  export interface MeasurementLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MeasurementLog'], meta: { name: 'MeasurementLog' } }
+    /**
+     * Find zero or one MeasurementLog that matches the filter.
+     * @param {MeasurementLogFindUniqueArgs} args - Arguments to find a MeasurementLog
+     * @example
+     * // Get one MeasurementLog
+     * const measurementLog = await prisma.measurementLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MeasurementLogFindUniqueArgs>(args: SelectSubset<T, MeasurementLogFindUniqueArgs<ExtArgs>>): Prisma__MeasurementLogClient<$Result.GetResult<Prisma.$MeasurementLogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MeasurementLog that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MeasurementLogFindUniqueOrThrowArgs} args - Arguments to find a MeasurementLog
+     * @example
+     * // Get one MeasurementLog
+     * const measurementLog = await prisma.measurementLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MeasurementLogFindUniqueOrThrowArgs>(args: SelectSubset<T, MeasurementLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MeasurementLogClient<$Result.GetResult<Prisma.$MeasurementLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MeasurementLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeasurementLogFindFirstArgs} args - Arguments to find a MeasurementLog
+     * @example
+     * // Get one MeasurementLog
+     * const measurementLog = await prisma.measurementLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MeasurementLogFindFirstArgs>(args?: SelectSubset<T, MeasurementLogFindFirstArgs<ExtArgs>>): Prisma__MeasurementLogClient<$Result.GetResult<Prisma.$MeasurementLogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MeasurementLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeasurementLogFindFirstOrThrowArgs} args - Arguments to find a MeasurementLog
+     * @example
+     * // Get one MeasurementLog
+     * const measurementLog = await prisma.measurementLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MeasurementLogFindFirstOrThrowArgs>(args?: SelectSubset<T, MeasurementLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__MeasurementLogClient<$Result.GetResult<Prisma.$MeasurementLogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MeasurementLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeasurementLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MeasurementLogs
+     * const measurementLogs = await prisma.measurementLog.findMany()
+     * 
+     * // Get first 10 MeasurementLogs
+     * const measurementLogs = await prisma.measurementLog.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const measurementLogWithIdOnly = await prisma.measurementLog.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MeasurementLogFindManyArgs>(args?: SelectSubset<T, MeasurementLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeasurementLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MeasurementLog.
+     * @param {MeasurementLogCreateArgs} args - Arguments to create a MeasurementLog.
+     * @example
+     * // Create one MeasurementLog
+     * const MeasurementLog = await prisma.measurementLog.create({
+     *   data: {
+     *     // ... data to create a MeasurementLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends MeasurementLogCreateArgs>(args: SelectSubset<T, MeasurementLogCreateArgs<ExtArgs>>): Prisma__MeasurementLogClient<$Result.GetResult<Prisma.$MeasurementLogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MeasurementLogs.
+     * @param {MeasurementLogCreateManyArgs} args - Arguments to create many MeasurementLogs.
+     * @example
+     * // Create many MeasurementLogs
+     * const measurementLog = await prisma.measurementLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MeasurementLogCreateManyArgs>(args?: SelectSubset<T, MeasurementLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MeasurementLogs and returns the data saved in the database.
+     * @param {MeasurementLogCreateManyAndReturnArgs} args - Arguments to create many MeasurementLogs.
+     * @example
+     * // Create many MeasurementLogs
+     * const measurementLog = await prisma.measurementLog.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MeasurementLogs and only return the `id`
+     * const measurementLogWithIdOnly = await prisma.measurementLog.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MeasurementLogCreateManyAndReturnArgs>(args?: SelectSubset<T, MeasurementLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeasurementLogPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MeasurementLog.
+     * @param {MeasurementLogDeleteArgs} args - Arguments to delete one MeasurementLog.
+     * @example
+     * // Delete one MeasurementLog
+     * const MeasurementLog = await prisma.measurementLog.delete({
+     *   where: {
+     *     // ... filter to delete one MeasurementLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MeasurementLogDeleteArgs>(args: SelectSubset<T, MeasurementLogDeleteArgs<ExtArgs>>): Prisma__MeasurementLogClient<$Result.GetResult<Prisma.$MeasurementLogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MeasurementLog.
+     * @param {MeasurementLogUpdateArgs} args - Arguments to update one MeasurementLog.
+     * @example
+     * // Update one MeasurementLog
+     * const measurementLog = await prisma.measurementLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MeasurementLogUpdateArgs>(args: SelectSubset<T, MeasurementLogUpdateArgs<ExtArgs>>): Prisma__MeasurementLogClient<$Result.GetResult<Prisma.$MeasurementLogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MeasurementLogs.
+     * @param {MeasurementLogDeleteManyArgs} args - Arguments to filter MeasurementLogs to delete.
+     * @example
+     * // Delete a few MeasurementLogs
+     * const { count } = await prisma.measurementLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MeasurementLogDeleteManyArgs>(args?: SelectSubset<T, MeasurementLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MeasurementLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeasurementLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MeasurementLogs
+     * const measurementLog = await prisma.measurementLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MeasurementLogUpdateManyArgs>(args: SelectSubset<T, MeasurementLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MeasurementLogs and returns the data updated in the database.
+     * @param {MeasurementLogUpdateManyAndReturnArgs} args - Arguments to update many MeasurementLogs.
+     * @example
+     * // Update many MeasurementLogs
+     * const measurementLog = await prisma.measurementLog.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MeasurementLogs and only return the `id`
+     * const measurementLogWithIdOnly = await prisma.measurementLog.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MeasurementLogUpdateManyAndReturnArgs>(args: SelectSubset<T, MeasurementLogUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeasurementLogPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MeasurementLog.
+     * @param {MeasurementLogUpsertArgs} args - Arguments to update or create a MeasurementLog.
+     * @example
+     * // Update or create a MeasurementLog
+     * const measurementLog = await prisma.measurementLog.upsert({
+     *   create: {
+     *     // ... data to create a MeasurementLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MeasurementLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MeasurementLogUpsertArgs>(args: SelectSubset<T, MeasurementLogUpsertArgs<ExtArgs>>): Prisma__MeasurementLogClient<$Result.GetResult<Prisma.$MeasurementLogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MeasurementLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeasurementLogCountArgs} args - Arguments to filter MeasurementLogs to count.
+     * @example
+     * // Count the number of MeasurementLogs
+     * const count = await prisma.measurementLog.count({
+     *   where: {
+     *     // ... the filter for the MeasurementLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends MeasurementLogCountArgs>(
+      args?: Subset<T, MeasurementLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MeasurementLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MeasurementLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeasurementLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MeasurementLogAggregateArgs>(args: Subset<T, MeasurementLogAggregateArgs>): Prisma.PrismaPromise<GetMeasurementLogAggregateType<T>>
+
+    /**
+     * Group by MeasurementLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeasurementLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MeasurementLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MeasurementLogGroupByArgs['orderBy'] }
+        : { orderBy?: MeasurementLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MeasurementLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMeasurementLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MeasurementLog model
+   */
+  readonly fields: MeasurementLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MeasurementLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MeasurementLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MeasurementLog model
+   */
+  interface MeasurementLogFieldRefs {
+    readonly id: FieldRef<"MeasurementLog", 'Int'>
+    readonly userId: FieldRef<"MeasurementLog", 'Int'>
+    readonly weight: FieldRef<"MeasurementLog", 'Decimal'>
+    readonly waist: FieldRef<"MeasurementLog", 'Decimal'>
+    readonly chest: FieldRef<"MeasurementLog", 'Decimal'>
+    readonly leftArm: FieldRef<"MeasurementLog", 'Decimal'>
+    readonly rightArm: FieldRef<"MeasurementLog", 'Decimal'>
+    readonly leftLeg: FieldRef<"MeasurementLog", 'Decimal'>
+    readonly rightLeg: FieldRef<"MeasurementLog", 'Decimal'>
+    readonly recordedAt: FieldRef<"MeasurementLog", 'DateTime'>
+    readonly updatedAt: FieldRef<"MeasurementLog", 'DateTime'>
+    readonly note: FieldRef<"MeasurementLog", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MeasurementLog findUnique
+   */
+  export type MeasurementLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementLog
+     */
+    select?: MeasurementLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementLog
+     */
+    omit?: MeasurementLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementLogInclude<ExtArgs> | null
+    /**
+     * Filter, which MeasurementLog to fetch.
+     */
+    where: MeasurementLogWhereUniqueInput
+  }
+
+  /**
+   * MeasurementLog findUniqueOrThrow
+   */
+  export type MeasurementLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementLog
+     */
+    select?: MeasurementLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementLog
+     */
+    omit?: MeasurementLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementLogInclude<ExtArgs> | null
+    /**
+     * Filter, which MeasurementLog to fetch.
+     */
+    where: MeasurementLogWhereUniqueInput
+  }
+
+  /**
+   * MeasurementLog findFirst
+   */
+  export type MeasurementLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementLog
+     */
+    select?: MeasurementLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementLog
+     */
+    omit?: MeasurementLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementLogInclude<ExtArgs> | null
+    /**
+     * Filter, which MeasurementLog to fetch.
+     */
+    where?: MeasurementLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MeasurementLogs to fetch.
+     */
+    orderBy?: MeasurementLogOrderByWithRelationInput | MeasurementLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MeasurementLogs.
+     */
+    cursor?: MeasurementLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MeasurementLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MeasurementLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MeasurementLogs.
+     */
+    distinct?: MeasurementLogScalarFieldEnum | MeasurementLogScalarFieldEnum[]
+  }
+
+  /**
+   * MeasurementLog findFirstOrThrow
+   */
+  export type MeasurementLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementLog
+     */
+    select?: MeasurementLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementLog
+     */
+    omit?: MeasurementLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementLogInclude<ExtArgs> | null
+    /**
+     * Filter, which MeasurementLog to fetch.
+     */
+    where?: MeasurementLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MeasurementLogs to fetch.
+     */
+    orderBy?: MeasurementLogOrderByWithRelationInput | MeasurementLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MeasurementLogs.
+     */
+    cursor?: MeasurementLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MeasurementLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MeasurementLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MeasurementLogs.
+     */
+    distinct?: MeasurementLogScalarFieldEnum | MeasurementLogScalarFieldEnum[]
+  }
+
+  /**
+   * MeasurementLog findMany
+   */
+  export type MeasurementLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementLog
+     */
+    select?: MeasurementLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementLog
+     */
+    omit?: MeasurementLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementLogInclude<ExtArgs> | null
+    /**
+     * Filter, which MeasurementLogs to fetch.
+     */
+    where?: MeasurementLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MeasurementLogs to fetch.
+     */
+    orderBy?: MeasurementLogOrderByWithRelationInput | MeasurementLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MeasurementLogs.
+     */
+    cursor?: MeasurementLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MeasurementLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MeasurementLogs.
+     */
+    skip?: number
+    distinct?: MeasurementLogScalarFieldEnum | MeasurementLogScalarFieldEnum[]
+  }
+
+  /**
+   * MeasurementLog create
+   */
+  export type MeasurementLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementLog
+     */
+    select?: MeasurementLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementLog
+     */
+    omit?: MeasurementLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementLogInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MeasurementLog.
+     */
+    data: XOR<MeasurementLogCreateInput, MeasurementLogUncheckedCreateInput>
+  }
+
+  /**
+   * MeasurementLog createMany
+   */
+  export type MeasurementLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MeasurementLogs.
+     */
+    data: MeasurementLogCreateManyInput | MeasurementLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MeasurementLog createManyAndReturn
+   */
+  export type MeasurementLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementLog
+     */
+    select?: MeasurementLogSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementLog
+     */
+    omit?: MeasurementLogOmit<ExtArgs> | null
+    /**
+     * The data used to create many MeasurementLogs.
+     */
+    data: MeasurementLogCreateManyInput | MeasurementLogCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementLogIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MeasurementLog update
+   */
+  export type MeasurementLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementLog
+     */
+    select?: MeasurementLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementLog
+     */
+    omit?: MeasurementLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementLogInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MeasurementLog.
+     */
+    data: XOR<MeasurementLogUpdateInput, MeasurementLogUncheckedUpdateInput>
+    /**
+     * Choose, which MeasurementLog to update.
+     */
+    where: MeasurementLogWhereUniqueInput
+  }
+
+  /**
+   * MeasurementLog updateMany
+   */
+  export type MeasurementLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MeasurementLogs.
+     */
+    data: XOR<MeasurementLogUpdateManyMutationInput, MeasurementLogUncheckedUpdateManyInput>
+    /**
+     * Filter which MeasurementLogs to update
+     */
+    where?: MeasurementLogWhereInput
+    /**
+     * Limit how many MeasurementLogs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MeasurementLog updateManyAndReturn
+   */
+  export type MeasurementLogUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementLog
+     */
+    select?: MeasurementLogSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementLog
+     */
+    omit?: MeasurementLogOmit<ExtArgs> | null
+    /**
+     * The data used to update MeasurementLogs.
+     */
+    data: XOR<MeasurementLogUpdateManyMutationInput, MeasurementLogUncheckedUpdateManyInput>
+    /**
+     * Filter which MeasurementLogs to update
+     */
+    where?: MeasurementLogWhereInput
+    /**
+     * Limit how many MeasurementLogs to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementLogIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MeasurementLog upsert
+   */
+  export type MeasurementLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementLog
+     */
+    select?: MeasurementLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementLog
+     */
+    omit?: MeasurementLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementLogInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MeasurementLog to update in case it exists.
+     */
+    where: MeasurementLogWhereUniqueInput
+    /**
+     * In case the MeasurementLog found by the `where` argument doesn't exist, create a new MeasurementLog with this data.
+     */
+    create: XOR<MeasurementLogCreateInput, MeasurementLogUncheckedCreateInput>
+    /**
+     * In case the MeasurementLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MeasurementLogUpdateInput, MeasurementLogUncheckedUpdateInput>
+  }
+
+  /**
+   * MeasurementLog delete
+   */
+  export type MeasurementLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementLog
+     */
+    select?: MeasurementLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementLog
+     */
+    omit?: MeasurementLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementLogInclude<ExtArgs> | null
+    /**
+     * Filter which MeasurementLog to delete.
+     */
+    where: MeasurementLogWhereUniqueInput
+  }
+
+  /**
+   * MeasurementLog deleteMany
+   */
+  export type MeasurementLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MeasurementLogs to delete
+     */
+    where?: MeasurementLogWhereInput
+    /**
+     * Limit how many MeasurementLogs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MeasurementLog without action
+   */
+  export type MeasurementLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementLog
+     */
+    select?: MeasurementLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementLog
+     */
+    omit?: MeasurementLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementLogInclude<ExtArgs> | null
   }
 
 
@@ -3034,6 +4445,24 @@ export namespace Prisma {
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+  export const MeasurementLogScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    weight: 'weight',
+    waist: 'waist',
+    chest: 'chest',
+    leftArm: 'leftArm',
+    rightArm: 'rightArm',
+    leftLeg: 'leftLeg',
+    rightLeg: 'rightLeg',
+    recordedAt: 'recordedAt',
+    updatedAt: 'updatedAt',
+    note: 'note'
+  };
+
+  export type MeasurementLogScalarFieldEnum = (typeof MeasurementLogScalarFieldEnum)[keyof typeof MeasurementLogScalarFieldEnum]
+
+
   export const SessionScalarFieldEnum: {
     id: 'id',
     sid: 'sid',
@@ -3058,6 +4487,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -3122,6 +4559,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Decimal'
+   */
+  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal[]'
+   */
+  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -3149,6 +4600,7 @@ export namespace Prisma {
     passwordHash?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    measurementLogs?: MeasurementLogListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -3159,6 +4611,7 @@ export namespace Prisma {
     passwordHash?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    measurementLogs?: MeasurementLogOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -3172,6 +4625,7 @@ export namespace Prisma {
     passwordHash?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    measurementLogs?: MeasurementLogListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -3200,6 +4654,98 @@ export namespace Prisma {
     passwordHash?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
+
+  export type MeasurementLogWhereInput = {
+    AND?: MeasurementLogWhereInput | MeasurementLogWhereInput[]
+    OR?: MeasurementLogWhereInput[]
+    NOT?: MeasurementLogWhereInput | MeasurementLogWhereInput[]
+    id?: IntFilter<"MeasurementLog"> | number
+    userId?: IntFilter<"MeasurementLog"> | number
+    weight?: DecimalNullableFilter<"MeasurementLog"> | Decimal | DecimalJsLike | number | string | null
+    waist?: DecimalNullableFilter<"MeasurementLog"> | Decimal | DecimalJsLike | number | string | null
+    chest?: DecimalNullableFilter<"MeasurementLog"> | Decimal | DecimalJsLike | number | string | null
+    leftArm?: DecimalNullableFilter<"MeasurementLog"> | Decimal | DecimalJsLike | number | string | null
+    rightArm?: DecimalNullableFilter<"MeasurementLog"> | Decimal | DecimalJsLike | number | string | null
+    leftLeg?: DecimalNullableFilter<"MeasurementLog"> | Decimal | DecimalJsLike | number | string | null
+    rightLeg?: DecimalNullableFilter<"MeasurementLog"> | Decimal | DecimalJsLike | number | string | null
+    recordedAt?: DateTimeFilter<"MeasurementLog"> | Date | string
+    updatedAt?: DateTimeFilter<"MeasurementLog"> | Date | string
+    note?: StringNullableFilter<"MeasurementLog"> | string | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type MeasurementLogOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    weight?: SortOrderInput | SortOrder
+    waist?: SortOrderInput | SortOrder
+    chest?: SortOrderInput | SortOrder
+    leftArm?: SortOrderInput | SortOrder
+    rightArm?: SortOrderInput | SortOrder
+    leftLeg?: SortOrderInput | SortOrder
+    rightLeg?: SortOrderInput | SortOrder
+    recordedAt?: SortOrder
+    updatedAt?: SortOrder
+    note?: SortOrderInput | SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type MeasurementLogWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: MeasurementLogWhereInput | MeasurementLogWhereInput[]
+    OR?: MeasurementLogWhereInput[]
+    NOT?: MeasurementLogWhereInput | MeasurementLogWhereInput[]
+    userId?: IntFilter<"MeasurementLog"> | number
+    weight?: DecimalNullableFilter<"MeasurementLog"> | Decimal | DecimalJsLike | number | string | null
+    waist?: DecimalNullableFilter<"MeasurementLog"> | Decimal | DecimalJsLike | number | string | null
+    chest?: DecimalNullableFilter<"MeasurementLog"> | Decimal | DecimalJsLike | number | string | null
+    leftArm?: DecimalNullableFilter<"MeasurementLog"> | Decimal | DecimalJsLike | number | string | null
+    rightArm?: DecimalNullableFilter<"MeasurementLog"> | Decimal | DecimalJsLike | number | string | null
+    leftLeg?: DecimalNullableFilter<"MeasurementLog"> | Decimal | DecimalJsLike | number | string | null
+    rightLeg?: DecimalNullableFilter<"MeasurementLog"> | Decimal | DecimalJsLike | number | string | null
+    recordedAt?: DateTimeFilter<"MeasurementLog"> | Date | string
+    updatedAt?: DateTimeFilter<"MeasurementLog"> | Date | string
+    note?: StringNullableFilter<"MeasurementLog"> | string | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type MeasurementLogOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    weight?: SortOrderInput | SortOrder
+    waist?: SortOrderInput | SortOrder
+    chest?: SortOrderInput | SortOrder
+    leftArm?: SortOrderInput | SortOrder
+    rightArm?: SortOrderInput | SortOrder
+    leftLeg?: SortOrderInput | SortOrder
+    rightLeg?: SortOrderInput | SortOrder
+    recordedAt?: SortOrder
+    updatedAt?: SortOrder
+    note?: SortOrderInput | SortOrder
+    _count?: MeasurementLogCountOrderByAggregateInput
+    _avg?: MeasurementLogAvgOrderByAggregateInput
+    _max?: MeasurementLogMaxOrderByAggregateInput
+    _min?: MeasurementLogMinOrderByAggregateInput
+    _sum?: MeasurementLogSumOrderByAggregateInput
+  }
+
+  export type MeasurementLogScalarWhereWithAggregatesInput = {
+    AND?: MeasurementLogScalarWhereWithAggregatesInput | MeasurementLogScalarWhereWithAggregatesInput[]
+    OR?: MeasurementLogScalarWhereWithAggregatesInput[]
+    NOT?: MeasurementLogScalarWhereWithAggregatesInput | MeasurementLogScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"MeasurementLog"> | number
+    userId?: IntWithAggregatesFilter<"MeasurementLog"> | number
+    weight?: DecimalNullableWithAggregatesFilter<"MeasurementLog"> | Decimal | DecimalJsLike | number | string | null
+    waist?: DecimalNullableWithAggregatesFilter<"MeasurementLog"> | Decimal | DecimalJsLike | number | string | null
+    chest?: DecimalNullableWithAggregatesFilter<"MeasurementLog"> | Decimal | DecimalJsLike | number | string | null
+    leftArm?: DecimalNullableWithAggregatesFilter<"MeasurementLog"> | Decimal | DecimalJsLike | number | string | null
+    rightArm?: DecimalNullableWithAggregatesFilter<"MeasurementLog"> | Decimal | DecimalJsLike | number | string | null
+    leftLeg?: DecimalNullableWithAggregatesFilter<"MeasurementLog"> | Decimal | DecimalJsLike | number | string | null
+    rightLeg?: DecimalNullableWithAggregatesFilter<"MeasurementLog"> | Decimal | DecimalJsLike | number | string | null
+    recordedAt?: DateTimeWithAggregatesFilter<"MeasurementLog"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"MeasurementLog"> | Date | string
+    note?: StringNullableWithAggregatesFilter<"MeasurementLog"> | string | null
   }
 
   export type SessionWhereInput = {
@@ -3256,6 +4802,7 @@ export namespace Prisma {
     passwordHash: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    measurementLogs?: MeasurementLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -3266,6 +4813,7 @@ export namespace Prisma {
     passwordHash: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    measurementLogs?: MeasurementLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -3275,6 +4823,7 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    measurementLogs?: MeasurementLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -3285,6 +4834,7 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    measurementLogs?: MeasurementLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -3314,6 +4864,107 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MeasurementLogCreateInput = {
+    weight?: Decimal | DecimalJsLike | number | string | null
+    waist?: Decimal | DecimalJsLike | number | string | null
+    chest?: Decimal | DecimalJsLike | number | string | null
+    leftArm?: Decimal | DecimalJsLike | number | string | null
+    rightArm?: Decimal | DecimalJsLike | number | string | null
+    leftLeg?: Decimal | DecimalJsLike | number | string | null
+    rightLeg?: Decimal | DecimalJsLike | number | string | null
+    recordedAt?: Date | string
+    updatedAt?: Date | string
+    note?: string | null
+    user: UserCreateNestedOneWithoutMeasurementLogsInput
+  }
+
+  export type MeasurementLogUncheckedCreateInput = {
+    id?: number
+    userId: number
+    weight?: Decimal | DecimalJsLike | number | string | null
+    waist?: Decimal | DecimalJsLike | number | string | null
+    chest?: Decimal | DecimalJsLike | number | string | null
+    leftArm?: Decimal | DecimalJsLike | number | string | null
+    rightArm?: Decimal | DecimalJsLike | number | string | null
+    leftLeg?: Decimal | DecimalJsLike | number | string | null
+    rightLeg?: Decimal | DecimalJsLike | number | string | null
+    recordedAt?: Date | string
+    updatedAt?: Date | string
+    note?: string | null
+  }
+
+  export type MeasurementLogUpdateInput = {
+    weight?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    waist?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    chest?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    leftArm?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rightArm?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    leftLeg?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rightLeg?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutMeasurementLogsNestedInput
+  }
+
+  export type MeasurementLogUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    weight?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    waist?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    chest?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    leftArm?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rightArm?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    leftLeg?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rightLeg?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MeasurementLogCreateManyInput = {
+    id?: number
+    userId: number
+    weight?: Decimal | DecimalJsLike | number | string | null
+    waist?: Decimal | DecimalJsLike | number | string | null
+    chest?: Decimal | DecimalJsLike | number | string | null
+    leftArm?: Decimal | DecimalJsLike | number | string | null
+    rightArm?: Decimal | DecimalJsLike | number | string | null
+    leftLeg?: Decimal | DecimalJsLike | number | string | null
+    rightLeg?: Decimal | DecimalJsLike | number | string | null
+    recordedAt?: Date | string
+    updatedAt?: Date | string
+    note?: string | null
+  }
+
+  export type MeasurementLogUpdateManyMutationInput = {
+    weight?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    waist?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    chest?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    leftArm?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rightArm?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    leftLeg?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rightLeg?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MeasurementLogUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    weight?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    waist?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    chest?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    leftArm?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rightArm?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    leftLeg?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rightLeg?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type SessionCreateInput = {
@@ -3407,6 +5058,16 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type MeasurementLogListRelationFilter = {
+    every?: MeasurementLogWhereInput
+    some?: MeasurementLogWhereInput
+    none?: MeasurementLogWhereInput
+  }
+
+  export type MeasurementLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type UserCountOrderByAggregateInput = {
@@ -3505,6 +5166,145 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type DecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type MeasurementLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    weight?: SortOrder
+    waist?: SortOrder
+    chest?: SortOrder
+    leftArm?: SortOrder
+    rightArm?: SortOrder
+    leftLeg?: SortOrder
+    rightLeg?: SortOrder
+    recordedAt?: SortOrder
+    updatedAt?: SortOrder
+    note?: SortOrder
+  }
+
+  export type MeasurementLogAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    weight?: SortOrder
+    waist?: SortOrder
+    chest?: SortOrder
+    leftArm?: SortOrder
+    rightArm?: SortOrder
+    leftLeg?: SortOrder
+    rightLeg?: SortOrder
+  }
+
+  export type MeasurementLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    weight?: SortOrder
+    waist?: SortOrder
+    chest?: SortOrder
+    leftArm?: SortOrder
+    rightArm?: SortOrder
+    leftLeg?: SortOrder
+    rightLeg?: SortOrder
+    recordedAt?: SortOrder
+    updatedAt?: SortOrder
+    note?: SortOrder
+  }
+
+  export type MeasurementLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    weight?: SortOrder
+    waist?: SortOrder
+    chest?: SortOrder
+    leftArm?: SortOrder
+    rightArm?: SortOrder
+    leftLeg?: SortOrder
+    rightLeg?: SortOrder
+    recordedAt?: SortOrder
+    updatedAt?: SortOrder
+    note?: SortOrder
+  }
+
+  export type MeasurementLogSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    weight?: SortOrder
+    waist?: SortOrder
+    chest?: SortOrder
+    leftArm?: SortOrder
+    rightArm?: SortOrder
+    leftLeg?: SortOrder
+    rightLeg?: SortOrder
+  }
+
+  export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type SessionCountOrderByAggregateInput = {
     id?: SortOrder
     sid?: SortOrder
@@ -3526,6 +5326,20 @@ export namespace Prisma {
     expiresAt?: SortOrder
   }
 
+  export type MeasurementLogCreateNestedManyWithoutUserInput = {
+    create?: XOR<MeasurementLogCreateWithoutUserInput, MeasurementLogUncheckedCreateWithoutUserInput> | MeasurementLogCreateWithoutUserInput[] | MeasurementLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MeasurementLogCreateOrConnectWithoutUserInput | MeasurementLogCreateOrConnectWithoutUserInput[]
+    createMany?: MeasurementLogCreateManyUserInputEnvelope
+    connect?: MeasurementLogWhereUniqueInput | MeasurementLogWhereUniqueInput[]
+  }
+
+  export type MeasurementLogUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<MeasurementLogCreateWithoutUserInput, MeasurementLogUncheckedCreateWithoutUserInput> | MeasurementLogCreateWithoutUserInput[] | MeasurementLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MeasurementLogCreateOrConnectWithoutUserInput | MeasurementLogCreateOrConnectWithoutUserInput[]
+    createMany?: MeasurementLogCreateManyUserInputEnvelope
+    connect?: MeasurementLogWhereUniqueInput | MeasurementLogWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -3538,12 +5352,66 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type MeasurementLogUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MeasurementLogCreateWithoutUserInput, MeasurementLogUncheckedCreateWithoutUserInput> | MeasurementLogCreateWithoutUserInput[] | MeasurementLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MeasurementLogCreateOrConnectWithoutUserInput | MeasurementLogCreateOrConnectWithoutUserInput[]
+    upsert?: MeasurementLogUpsertWithWhereUniqueWithoutUserInput | MeasurementLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MeasurementLogCreateManyUserInputEnvelope
+    set?: MeasurementLogWhereUniqueInput | MeasurementLogWhereUniqueInput[]
+    disconnect?: MeasurementLogWhereUniqueInput | MeasurementLogWhereUniqueInput[]
+    delete?: MeasurementLogWhereUniqueInput | MeasurementLogWhereUniqueInput[]
+    connect?: MeasurementLogWhereUniqueInput | MeasurementLogWhereUniqueInput[]
+    update?: MeasurementLogUpdateWithWhereUniqueWithoutUserInput | MeasurementLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MeasurementLogUpdateManyWithWhereWithoutUserInput | MeasurementLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MeasurementLogScalarWhereInput | MeasurementLogScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type MeasurementLogUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MeasurementLogCreateWithoutUserInput, MeasurementLogUncheckedCreateWithoutUserInput> | MeasurementLogCreateWithoutUserInput[] | MeasurementLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MeasurementLogCreateOrConnectWithoutUserInput | MeasurementLogCreateOrConnectWithoutUserInput[]
+    upsert?: MeasurementLogUpsertWithWhereUniqueWithoutUserInput | MeasurementLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MeasurementLogCreateManyUserInputEnvelope
+    set?: MeasurementLogWhereUniqueInput | MeasurementLogWhereUniqueInput[]
+    disconnect?: MeasurementLogWhereUniqueInput | MeasurementLogWhereUniqueInput[]
+    delete?: MeasurementLogWhereUniqueInput | MeasurementLogWhereUniqueInput[]
+    connect?: MeasurementLogWhereUniqueInput | MeasurementLogWhereUniqueInput[]
+    update?: MeasurementLogUpdateWithWhereUniqueWithoutUserInput | MeasurementLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MeasurementLogUpdateManyWithWhereWithoutUserInput | MeasurementLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MeasurementLogScalarWhereInput | MeasurementLogScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutMeasurementLogsInput = {
+    create?: XOR<UserCreateWithoutMeasurementLogsInput, UserUncheckedCreateWithoutMeasurementLogsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMeasurementLogsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type NullableDecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string | null
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type UserUpdateOneRequiredWithoutMeasurementLogsNestedInput = {
+    create?: XOR<UserCreateWithoutMeasurementLogsInput, UserUncheckedCreateWithoutMeasurementLogsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMeasurementLogsInput
+    upsert?: UserUpsertWithoutMeasurementLogsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMeasurementLogsInput, UserUpdateWithoutMeasurementLogsInput>, UserUncheckedUpdateWithoutMeasurementLogsInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -3655,6 +5523,255 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedDecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type MeasurementLogCreateWithoutUserInput = {
+    weight?: Decimal | DecimalJsLike | number | string | null
+    waist?: Decimal | DecimalJsLike | number | string | null
+    chest?: Decimal | DecimalJsLike | number | string | null
+    leftArm?: Decimal | DecimalJsLike | number | string | null
+    rightArm?: Decimal | DecimalJsLike | number | string | null
+    leftLeg?: Decimal | DecimalJsLike | number | string | null
+    rightLeg?: Decimal | DecimalJsLike | number | string | null
+    recordedAt?: Date | string
+    updatedAt?: Date | string
+    note?: string | null
+  }
+
+  export type MeasurementLogUncheckedCreateWithoutUserInput = {
+    id?: number
+    weight?: Decimal | DecimalJsLike | number | string | null
+    waist?: Decimal | DecimalJsLike | number | string | null
+    chest?: Decimal | DecimalJsLike | number | string | null
+    leftArm?: Decimal | DecimalJsLike | number | string | null
+    rightArm?: Decimal | DecimalJsLike | number | string | null
+    leftLeg?: Decimal | DecimalJsLike | number | string | null
+    rightLeg?: Decimal | DecimalJsLike | number | string | null
+    recordedAt?: Date | string
+    updatedAt?: Date | string
+    note?: string | null
+  }
+
+  export type MeasurementLogCreateOrConnectWithoutUserInput = {
+    where: MeasurementLogWhereUniqueInput
+    create: XOR<MeasurementLogCreateWithoutUserInput, MeasurementLogUncheckedCreateWithoutUserInput>
+  }
+
+  export type MeasurementLogCreateManyUserInputEnvelope = {
+    data: MeasurementLogCreateManyUserInput | MeasurementLogCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MeasurementLogUpsertWithWhereUniqueWithoutUserInput = {
+    where: MeasurementLogWhereUniqueInput
+    update: XOR<MeasurementLogUpdateWithoutUserInput, MeasurementLogUncheckedUpdateWithoutUserInput>
+    create: XOR<MeasurementLogCreateWithoutUserInput, MeasurementLogUncheckedCreateWithoutUserInput>
+  }
+
+  export type MeasurementLogUpdateWithWhereUniqueWithoutUserInput = {
+    where: MeasurementLogWhereUniqueInput
+    data: XOR<MeasurementLogUpdateWithoutUserInput, MeasurementLogUncheckedUpdateWithoutUserInput>
+  }
+
+  export type MeasurementLogUpdateManyWithWhereWithoutUserInput = {
+    where: MeasurementLogScalarWhereInput
+    data: XOR<MeasurementLogUpdateManyMutationInput, MeasurementLogUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type MeasurementLogScalarWhereInput = {
+    AND?: MeasurementLogScalarWhereInput | MeasurementLogScalarWhereInput[]
+    OR?: MeasurementLogScalarWhereInput[]
+    NOT?: MeasurementLogScalarWhereInput | MeasurementLogScalarWhereInput[]
+    id?: IntFilter<"MeasurementLog"> | number
+    userId?: IntFilter<"MeasurementLog"> | number
+    weight?: DecimalNullableFilter<"MeasurementLog"> | Decimal | DecimalJsLike | number | string | null
+    waist?: DecimalNullableFilter<"MeasurementLog"> | Decimal | DecimalJsLike | number | string | null
+    chest?: DecimalNullableFilter<"MeasurementLog"> | Decimal | DecimalJsLike | number | string | null
+    leftArm?: DecimalNullableFilter<"MeasurementLog"> | Decimal | DecimalJsLike | number | string | null
+    rightArm?: DecimalNullableFilter<"MeasurementLog"> | Decimal | DecimalJsLike | number | string | null
+    leftLeg?: DecimalNullableFilter<"MeasurementLog"> | Decimal | DecimalJsLike | number | string | null
+    rightLeg?: DecimalNullableFilter<"MeasurementLog"> | Decimal | DecimalJsLike | number | string | null
+    recordedAt?: DateTimeFilter<"MeasurementLog"> | Date | string
+    updatedAt?: DateTimeFilter<"MeasurementLog"> | Date | string
+    note?: StringNullableFilter<"MeasurementLog"> | string | null
+  }
+
+  export type UserCreateWithoutMeasurementLogsInput = {
+    email: string
+    name: string
+    role?: $Enums.Role
+    passwordHash: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserUncheckedCreateWithoutMeasurementLogsInput = {
+    id?: number
+    email: string
+    name: string
+    role?: $Enums.Role
+    passwordHash: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserCreateOrConnectWithoutMeasurementLogsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMeasurementLogsInput, UserUncheckedCreateWithoutMeasurementLogsInput>
+  }
+
+  export type UserUpsertWithoutMeasurementLogsInput = {
+    update: XOR<UserUpdateWithoutMeasurementLogsInput, UserUncheckedUpdateWithoutMeasurementLogsInput>
+    create: XOR<UserCreateWithoutMeasurementLogsInput, UserUncheckedCreateWithoutMeasurementLogsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMeasurementLogsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMeasurementLogsInput, UserUncheckedUpdateWithoutMeasurementLogsInput>
+  }
+
+  export type UserUpdateWithoutMeasurementLogsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUncheckedUpdateWithoutMeasurementLogsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MeasurementLogCreateManyUserInput = {
+    id?: number
+    weight?: Decimal | DecimalJsLike | number | string | null
+    waist?: Decimal | DecimalJsLike | number | string | null
+    chest?: Decimal | DecimalJsLike | number | string | null
+    leftArm?: Decimal | DecimalJsLike | number | string | null
+    rightArm?: Decimal | DecimalJsLike | number | string | null
+    leftLeg?: Decimal | DecimalJsLike | number | string | null
+    rightLeg?: Decimal | DecimalJsLike | number | string | null
+    recordedAt?: Date | string
+    updatedAt?: Date | string
+    note?: string | null
+  }
+
+  export type MeasurementLogUpdateWithoutUserInput = {
+    weight?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    waist?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    chest?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    leftArm?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rightArm?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    leftLeg?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rightLeg?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MeasurementLogUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    weight?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    waist?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    chest?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    leftArm?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rightArm?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    leftLeg?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rightLeg?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MeasurementLogUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    weight?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    waist?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    chest?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    leftArm?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rightArm?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    leftLeg?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rightLeg?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

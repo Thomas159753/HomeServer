@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
+  output   = "./generated/prisma"
 }
 
 datasource db {
@@ -15,6 +15,31 @@ model User {
   passwordHash String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+
+  measurementLogs MeasurementLog[]
+}
+
+model MeasurementLog {
+  id     Int  @id @default(autoincrement())
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  weight Decimal? @db.Decimal(5, 2)
+
+  waist Decimal? @db.Decimal(5, 2)
+  chest Decimal? @db.Decimal(5, 2)
+
+  leftArm  Decimal? @db.Decimal(5, 2)
+  rightArm Decimal? @db.Decimal(5, 2)
+  leftLeg  Decimal? @db.Decimal(5, 2)
+  rightLeg Decimal? @db.Decimal(5, 2)
+
+  recordedAt DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  note String?
+
+  @@index([userId, recordedAt])
 }
 
 model Session {

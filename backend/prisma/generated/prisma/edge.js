@@ -39,12 +39,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 7.3.0
- * Query Engine version: 9d6ad21cbbceab97458517b147a6a09ff43aa735
+ * Prisma Client JS version: 7.4.0
+ * Query Engine version: ab56fe763f921d033a6c195e7ddeb3e255bdbb57
  */
 Prisma.prismaVersion = {
-  client: "7.3.0",
-  engine: "9d6ad21cbbceab97458517b147a6a09ff43aa735"
+  client: "7.4.0",
+  engine: "ab56fe763f921d033a6c195e7ddeb3e255bdbb57"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -102,6 +102,21 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.MeasurementLogScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  weight: 'weight',
+  waist: 'waist',
+  chest: 'chest',
+  leftArm: 'leftArm',
+  rightArm: 'rightArm',
+  leftLeg: 'leftLeg',
+  rightLeg: 'rightLeg',
+  recordedAt: 'recordedAt',
+  updatedAt: 'updatedAt',
+  note: 'note'
+};
+
 exports.Prisma.SessionScalarFieldEnum = {
   id: 'id',
   sid: 'sid',
@@ -118,6 +133,11 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
 exports.Role = exports.$Enums.Role = {
   USER: 'USER',
   ADMIN: 'ADMIN'
@@ -125,6 +145,7 @@ exports.Role = exports.$Enums.Role = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  MeasurementLog: 'MeasurementLog',
   Session: 'Session'
 };
 /**
@@ -132,14 +153,18 @@ exports.Prisma.ModelName = {
  */
 const config = {
   "previewFeatures": [],
-  "clientVersion": "7.3.0",
-  "engineVersion": "9d6ad21cbbceab97458517b147a6a09ff43aa735",
+  "clientVersion": "7.4.0",
+  "engineVersion": "ab56fe763f921d033a6c195e7ddeb3e255bdbb57",
   "activeProvider": "postgresql",
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  id           Int      @id @default(autoincrement())\n  email        String   @unique\n  name         String\n  role         Role     @default(USER)\n  passwordHash String\n  createdAt    DateTime @default(now())\n  updatedAt    DateTime @updatedAt\n}\n\nmodel Session {\n  id        String   @id\n  sid       String   @unique\n  data      String\n  expiresAt DateTime\n}\n\nenum Role {\n  USER\n  ADMIN\n}\n"
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  id           Int      @id @default(autoincrement())\n  email        String   @unique\n  name         String\n  role         Role     @default(USER)\n  passwordHash String\n  createdAt    DateTime @default(now())\n  updatedAt    DateTime @updatedAt\n\n  measurementLogs MeasurementLog[]\n}\n\nmodel MeasurementLog {\n  id     Int  @id @default(autoincrement())\n  userId Int\n  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  weight Decimal? @db.Decimal(5, 2)\n\n  waist Decimal? @db.Decimal(5, 2)\n  chest Decimal? @db.Decimal(5, 2)\n\n  leftArm  Decimal? @db.Decimal(5, 2)\n  rightArm Decimal? @db.Decimal(5, 2)\n  leftLeg  Decimal? @db.Decimal(5, 2)\n  rightLeg Decimal? @db.Decimal(5, 2)\n\n  recordedAt DateTime @default(now())\n  updatedAt  DateTime @updatedAt\n\n  note String?\n\n  @@index([userId, recordedAt])\n}\n\nmodel Session {\n  id        String   @id\n  sid       String   @unique\n  data      String\n  expiresAt DateTime\n}\n\nenum Role {\n  USER\n  ADMIN\n}\n"
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"Role\"},{\"name\":\"passwordHash\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Session\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"data\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"Role\"},{\"name\":\"passwordHash\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"measurementLogs\",\"kind\":\"object\",\"type\":\"MeasurementLog\",\"relationName\":\"MeasurementLogToUser\"}],\"dbName\":null},\"MeasurementLog\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"MeasurementLogToUser\"},{\"name\":\"weight\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"waist\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"chest\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"leftArm\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"rightArm\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"leftLeg\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"rightLeg\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"recordedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"note\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"Session\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"data\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
+config.parameterizationSchema = {
+  strings: JSON.parse("[\"where\",\"orderBy\",\"cursor\",\"user\",\"measurementLogs\",\"_count\",\"User.findUnique\",\"User.findUniqueOrThrow\",\"User.findFirst\",\"User.findFirstOrThrow\",\"User.findMany\",\"data\",\"User.createOne\",\"User.createMany\",\"User.createManyAndReturn\",\"User.updateOne\",\"User.updateMany\",\"User.updateManyAndReturn\",\"create\",\"update\",\"User.upsertOne\",\"User.deleteOne\",\"User.deleteMany\",\"having\",\"_avg\",\"_sum\",\"_min\",\"_max\",\"User.groupBy\",\"User.aggregate\",\"MeasurementLog.findUnique\",\"MeasurementLog.findUniqueOrThrow\",\"MeasurementLog.findFirst\",\"MeasurementLog.findFirstOrThrow\",\"MeasurementLog.findMany\",\"MeasurementLog.createOne\",\"MeasurementLog.createMany\",\"MeasurementLog.createManyAndReturn\",\"MeasurementLog.updateOne\",\"MeasurementLog.updateMany\",\"MeasurementLog.updateManyAndReturn\",\"MeasurementLog.upsertOne\",\"MeasurementLog.deleteOne\",\"MeasurementLog.deleteMany\",\"MeasurementLog.groupBy\",\"MeasurementLog.aggregate\",\"Session.findUnique\",\"Session.findUniqueOrThrow\",\"Session.findFirst\",\"Session.findFirstOrThrow\",\"Session.findMany\",\"Session.createOne\",\"Session.createMany\",\"Session.createManyAndReturn\",\"Session.updateOne\",\"Session.updateMany\",\"Session.updateManyAndReturn\",\"Session.upsertOne\",\"Session.deleteOne\",\"Session.deleteMany\",\"Session.groupBy\",\"Session.aggregate\",\"AND\",\"OR\",\"NOT\",\"id\",\"sid\",\"expiresAt\",\"equals\",\"in\",\"notIn\",\"lt\",\"lte\",\"gt\",\"gte\",\"not\",\"contains\",\"startsWith\",\"endsWith\",\"userId\",\"weight\",\"waist\",\"chest\",\"leftArm\",\"rightArm\",\"leftLeg\",\"rightLeg\",\"recordedAt\",\"updatedAt\",\"note\",\"email\",\"name\",\"Role\",\"role\",\"passwordHash\",\"createdAt\",\"every\",\"some\",\"none\",\"is\",\"isNot\",\"connectOrCreate\",\"upsert\",\"createMany\",\"set\",\"disconnect\",\"delete\",\"connect\",\"updateMany\",\"deleteMany\",\"increment\",\"decrement\",\"multiply\",\"divide\"]"),
+  graph: "mwEeMAsEAABrACA-AABoADA_AAAJABBAAABoADBBAgAAAAFYQABYACFaAQAAAAFbAQBXACFdAABqXSJeAQBXACFfQABYACEBAAAAAQAgEAMAAG8AID4AAGwAMD8AAAMAEEAAAGwAMEECAGkAIU8CAGkAIVAQAG0AIVEQAG0AIVIQAG0AIVMQAG0AIVQQAG0AIVUQAG0AIVYQAG0AIVdAAFgAIVhAAFgAIVkBAG4AIQkDAACVAQAgUAAAdQAgUQAAdQAgUgAAdQAgUwAAdQAgVAAAdQAgVQAAdQAgVgAAdQAgWQAAdQAgEAMAAG8AID4AAGwAMD8AAAMAEEAAAGwAMEECAAAAAU8CAGkAIVAQAG0AIVEQAG0AIVIQAG0AIVMQAG0AIVQQAG0AIVUQAG0AIVYQAG0AIVdAAFgAIVhAAFgAIVkBAG4AIQMAAAADACABAAAEADACAAAFACABAAAAAwAgAQAAAAEAIAsEAABrACA-AABoADA_AAAJABBAAABoADBBAgBpACFYQABYACFaAQBXACFbAQBXACFdAABqXSJeAQBXACFfQABYACEBBAAAlAEAIAMAAAAJACABAAAKADACAAABACADAAAACQAgAQAACgAwAgAAAQAgAwAAAAkAIAEAAAoAMAIAAAEAIAgEAACTAQAgQQIAAAABWEAAAAABWgEAAAABWwEAAAABXQAAAF0CXgEAAAABX0AAAAABAQsAAA4AIAdBAgAAAAFYQAAAAAFaAQAAAAFbAQAAAAFdAAAAXQJeAQAAAAFfQAAAAAEBCwAAEAAwAQsAABAAMAgEAACGAQAgQQIAfQAhWEAAdAAhWgEAcwAhWwEAcwAhXQAAhQFdIl4BAHMAIV9AAHQAIQIAAAABACALAAATACAHQQIAfQAhWEAAdAAhWgEAcwAhWwEAcwAhXQAAhQFdIl4BAHMAIV9AAHQAIQIAAAAJACALAAAVACACAAAACQAgCwAAFQAgAwAAAAEAIBIAAA4AIBMAABMAIAEAAAABACABAAAACQAgBQUAAIABACAYAACBAQAgGQAAhAEAIBoAAIMBACAbAACCAQAgCj4AAGQAMD8AABwAEEAAAGQAMEECAFoAIVhAAFAAIVoBAE8AIVsBAE8AIV0AAGVdIl4BAE8AIV9AAFAAIQMAAAAJACABAAAbADAXAAAcACADAAAACQAgAQAACgAwAgAAAQAgAQAAAAUAIAEAAAAFACADAAAAAwAgAQAABAAwAgAABQAgAwAAAAMAIAEAAAQAMAIAAAUAIAMAAAADACABAAAEADACAAAFACANAwAAfwAgQQIAAAABTwIAAAABUBAAAAABURAAAAABUhAAAAABUxAAAAABVBAAAAABVRAAAAABVhAAAAABV0AAAAABWEAAAAABWQEAAAABAQsAACQAIAxBAgAAAAFPAgAAAAFQEAAAAAFREAAAAAFSEAAAAAFTEAAAAAFUEAAAAAFVEAAAAAFWEAAAAAFXQAAAAAFYQAAAAAFZAQAAAAEBCwAAJgAwAQsAACYAMA0DAAB-ACBBAgB9ACFPAgB9ACFQEAB7ACFREAB7ACFSEAB7ACFTEAB7ACFUEAB7ACFVEAB7ACFWEAB7ACFXQAB0ACFYQAB0ACFZAQB8ACECAAAABQAgCwAAKQAgDEECAH0AIU8CAH0AIVAQAHsAIVEQAHsAIVIQAHsAIVMQAHsAIVQQAHsAIVUQAHsAIVYQAHsAIVdAAHQAIVhAAHQAIVkBAHwAIQIAAAADACALAAArACACAAAAAwAgCwAAKwAgAwAAAAUAIBIAACQAIBMAACkAIAEAAAAFACABAAAAAwAgDQUAAHYAIBgAAHcAIBkAAHoAIBoAAHkAIBsAAHgAIFAAAHUAIFEAAHUAIFIAAHUAIFMAAHUAIFQAAHUAIFUAAHUAIFYAAHUAIFkAAHUAIA8-AABZADA_AAAyABBAAABZADBBAgBaACFPAgBaACFQEABbACFREABbACFSEABbACFTEABbACFUEABbACFVEABbACFWEABbACFXQABQACFYQABQACFZAQBcACEDAAAAAwAgAQAAMQAwFwAAMgAgAwAAAAMAIAEAAAQAMAIAAAUAIAcLAQBXACE-AABWADA_AAA4ABBAAABWADBBAQAAAAFCAQAAAAFDQABYACEBAAAANQAgAQAAADUAIAcLAQBXACE-AABWADA_AAA4ABBAAABWADBBAQBXACFCAQBXACFDQABYACEAAwAAADgAIAEAADkAMAIAADUAIAMAAAA4ACABAAA5ADACAAA1ACADAAAAOAAgAQAAOQAwAgAANQAgBAsBAAAAAUEBAAAAAUIBAAAAAUNAAAAAAQELAAA9ACAECwEAAAABQQEAAAABQgEAAAABQ0AAAAABAQsAAD8AMAELAAA_ADAECwEAcwAhQQEAcwAhQgEAcwAhQ0AAdAAhAgAAADUAIAsAAEIAIAQLAQBzACFBAQBzACFCAQBzACFDQAB0ACECAAAAOAAgCwAARAAgAgAAADgAIAsAAEQAIAMAAAA1ACASAAA9ACATAABCACABAAAANQAgAQAAADgAIAMFAABwACAaAAByACAbAABxACAHCwEATwAhPgAATgAwPwAASwAQQAAATgAwQQEATwAhQgEATwAhQ0AAUAAhAwAAADgAIAEAAEoAMBcAAEsAIAMAAAA4ACABAAA5ADACAAA1ACAHCwEATwAhPgAATgAwPwAASwAQQAAATgAwQQEATwAhQgEATwAhQ0AAUAAhDgUAAFIAIBoAAFUAIBsAAFUAIEQBAAAAAUUBAAAABEYBAAAABEcBAAAAAUgBAAAAAUkBAAAAAUoBAAAAAUsBAFQAIUwBAAAAAU0BAAAAAU4BAAAAAQsFAABSACAaAABTACAbAABTACBEQAAAAAFFQAAAAARGQAAAAARHQAAAAAFIQAAAAAFJQAAAAAFKQAAAAAFLQABRACELBQAAUgAgGgAAUwAgGwAAUwAgREAAAAABRUAAAAAERkAAAAAER0AAAAABSEAAAAABSUAAAAABSkAAAAABS0AAUQAhCEQCAAAAAUUCAAAABEYCAAAABEcCAAAAAUgCAAAAAUkCAAAAAUoCAAAAAUsCAFIAIQhEQAAAAAFFQAAAAARGQAAAAARHQAAAAAFIQAAAAAFJQAAAAAFKQAAAAAFLQABTACEOBQAAUgAgGgAAVQAgGwAAVQAgRAEAAAABRQEAAAAERgEAAAAERwEAAAABSAEAAAABSQEAAAABSgEAAAABSwEAVAAhTAEAAAABTQEAAAABTgEAAAABC0QBAAAAAUUBAAAABEYBAAAABEcBAAAAAUgBAAAAAUkBAAAAAUoBAAAAAUsBAFUAIUwBAAAAAU0BAAAAAU4BAAAAAQcLAQBXACE-AABWADA_AAA4ABBAAABWADBBAQBXACFCAQBXACFDQABYACELRAEAAAABRQEAAAAERgEAAAAERwEAAAABSAEAAAABSQEAAAABSgEAAAABSwEAVQAhTAEAAAABTQEAAAABTgEAAAABCERAAAAAAUVAAAAABEZAAAAABEdAAAAAAUhAAAAAAUlAAAAAAUpAAAAAAUtAAFMAIQ8-AABZADA_AAAyABBAAABZADBBAgBaACFPAgBaACFQEABbACFREABbACFSEABbACFTEABbACFUEABbACFVEABbACFWEABbACFXQABQACFYQABQACFZAQBcACENBQAAUgAgGAAAYwAgGQAAUgAgGgAAUgAgGwAAUgAgRAIAAAABRQIAAAAERgIAAAAERwIAAAABSAIAAAABSQIAAAABSgIAAAABSwIAYgAhDQUAAF4AIBgAAGEAIBkAAGEAIBoAAGEAIBsAAGEAIEQQAAAAAUUQAAAABUYQAAAABUcQAAAAAUgQAAAAAUkQAAAAAUoQAAAAAUsQAGAAIQ4FAABeACAaAABfACAbAABfACBEAQAAAAFFAQAAAAVGAQAAAAVHAQAAAAFIAQAAAAFJAQAAAAFKAQAAAAFLAQBdACFMAQAAAAFNAQAAAAFOAQAAAAEOBQAAXgAgGgAAXwAgGwAAXwAgRAEAAAABRQEAAAAFRgEAAAAFRwEAAAABSAEAAAABSQEAAAABSgEAAAABSwEAXQAhTAEAAAABTQEAAAABTgEAAAABCEQCAAAAAUUCAAAABUYCAAAABUcCAAAAAUgCAAAAAUkCAAAAAUoCAAAAAUsCAF4AIQtEAQAAAAFFAQAAAAVGAQAAAAVHAQAAAAFIAQAAAAFJAQAAAAFKAQAAAAFLAQBfACFMAQAAAAFNAQAAAAFOAQAAAAENBQAAXgAgGAAAYQAgGQAAYQAgGgAAYQAgGwAAYQAgRBAAAAABRRAAAAAFRhAAAAAFRxAAAAABSBAAAAABSRAAAAABShAAAAABSxAAYAAhCEQQAAAAAUUQAAAABUYQAAAABUcQAAAAAUgQAAAAAUkQAAAAAUoQAAAAAUsQAGEAIQ0FAABSACAYAABjACAZAABSACAaAABSACAbAABSACBEAgAAAAFFAgAAAARGAgAAAARHAgAAAAFIAgAAAAFJAgAAAAFKAgAAAAFLAgBiACEIRAgAAAABRQgAAAAERggAAAAERwgAAAABSAgAAAABSQgAAAABSggAAAABSwgAYwAhCj4AAGQAMD8AABwAEEAAAGQAMEECAFoAIVhAAFAAIVoBAE8AIVsBAE8AIV0AAGVdIl4BAE8AIV9AAFAAIQcFAABSACAaAABnACAbAABnACBEAAAAXQJFAAAAXQhGAAAAXQhLAABmXSIHBQAAUgAgGgAAZwAgGwAAZwAgRAAAAF0CRQAAAF0IRgAAAF0ISwAAZl0iBEQAAABdAkUAAABdCEYAAABdCEsAAGddIgsEAABrACA-AABoADA_AAAJABBAAABoADBBAgBpACFYQABYACFaAQBXACFbAQBXACFdAABqXSJeAQBXACFfQABYACEIRAIAAAABRQIAAAAERgIAAAAERwIAAAABSAIAAAABSQIAAAABSgIAAAABSwIAUgAhBEQAAABdAkUAAABdCEYAAABdCEsAAGddIgNgAAADACBhAAADACBiAAADACAQAwAAbwAgPgAAbAAwPwAAAwAQQAAAbAAwQQIAaQAhTwIAaQAhUBAAbQAhURAAbQAhUhAAbQAhUxAAbQAhVBAAbQAhVRAAbQAhVhAAbQAhV0AAWAAhWEAAWAAhWQEAbgAhCEQQAAAAAUUQAAAABUYQAAAABUcQAAAAAUgQAAAAAUkQAAAAAUoQAAAAAUsQAGEAIQtEAQAAAAFFAQAAAAVGAQAAAAVHAQAAAAFIAQAAAAFJAQAAAAFKAQAAAAFLAQBfACFMAQAAAAFNAQAAAAFOAQAAAAENBAAAawAgPgAAaAAwPwAACQAQQAAAaAAwQQIAaQAhWEAAWAAhWgEAVwAhWwEAVwAhXQAAal0iXgEAVwAhX0AAWAAhYwAACQAgZAAACQAgAAAAAWgBAAAAAQFoQAAAAAEAAAAAAAAFaBAAAAABbhAAAAABbxAAAAABcBAAAAABcRAAAAABAWgBAAAAAQVoAgAAAAFuAgAAAAFvAgAAAAFwAgAAAAFxAgAAAAEFEgAAlwEAIBMAAJoBACBlAACYAQAgZgAAmQEAIGsAAAEAIAMSAACXAQAgZQAAmAEAIGsAAAEAIAAAAAAAAWgAAABdAgsSAACHAQAwEwAAjAEAMGUAAIgBADBmAACJAQAwZwAAigEAIGgAAIsBADBpAACLAQAwagAAiwEAMGsAAIsBADBsAACNAQAwbQAAjgEAMAtBAgAAAAFQEAAAAAFREAAAAAFSEAAAAAFTEAAAAAFUEAAAAAFVEAAAAAFWEAAAAAFXQAAAAAFYQAAAAAFZAQAAAAECAAAABQAgEgAAkgEAIAMAAAAFACASAACSAQAgEwAAkQEAIAELAACWAQAwEAMAAG8AID4AAGwAMD8AAAMAEEAAAGwAMEECAAAAAU8CAGkAIVAQAG0AIVEQAG0AIVIQAG0AIVMQAG0AIVQQAG0AIVUQAG0AIVYQAG0AIVdAAFgAIVhAAFgAIVkBAG4AIQIAAAAFACALAACRAQAgAgAAAI8BACALAACQAQAgDz4AAI4BADA_AACPAQAQQAAAjgEAMEECAGkAIU8CAGkAIVAQAG0AIVEQAG0AIVIQAG0AIVMQAG0AIVQQAG0AIVUQAG0AIVYQAG0AIVdAAFgAIVhAAFgAIVkBAG4AIQ8-AACOAQAwPwAAjwEAEEAAAI4BADBBAgBpACFPAgBpACFQEABtACFREABtACFSEABtACFTEABtACFUEABtACFVEABtACFWEABtACFXQABYACFYQABYACFZAQBuACELQQIAfQAhUBAAewAhURAAewAhUhAAewAhUxAAewAhVBAAewAhVRAAewAhVhAAewAhV0AAdAAhWEAAdAAhWQEAfAAhC0ECAH0AIVAQAHsAIVEQAHsAIVIQAHsAIVMQAHsAIVQQAHsAIVUQAHsAIVYQAHsAIVdAAHQAIVhAAHQAIVkBAHwAIQtBAgAAAAFQEAAAAAFREAAAAAFSEAAAAAFTEAAAAAFUEAAAAAFVEAAAAAFWEAAAAAFXQAAAAAFYQAAAAAFZAQAAAAEEEgAAhwEAMGUAAIgBADBnAACKAQAgawAAiwEAMAABBAAAlAEAIAtBAgAAAAFQEAAAAAFREAAAAAFSEAAAAAFTEAAAAAFUEAAAAAFVEAAAAAFWEAAAAAFXQAAAAAFYQAAAAAFZAQAAAAEHQQIAAAABWEAAAAABWgEAAAABWwEAAAABXQAAAF0CXgEAAAABX0AAAAABAgAAAAEAIBIAAJcBACADAAAACQAgEgAAlwEAIBMAAJsBACAJAAAACQAgCwAAmwEAIEECAH0AIVhAAHQAIVoBAHMAIVsBAHMAIV0AAIUBXSJeAQBzACFfQAB0ACEHQQIAfQAhWEAAdAAhWgEAcwAhWwEAcwAhXQAAhQFdIl4BAHMAIV9AAHQAIQIEBgIFAAMBAwABAQQHAAAAAAUFAAgYAAkZAAoaAAsbAAwAAAAAAAUFAAgYAAkZAAoaAAsbAAwBAwABAQMAAQUFABEYABIZABMaABQbABUAAAAAAAUFABEYABIZABMaABQbABUAAAADBQAbGgAcGwAdAAAAAwUAGxoAHBsAHQYCAQcIAQgLAQkMAQoNAQwPAQ0RBA4SBQ8UARAWBBEXBhQYARUZARYaBBwdBx0eDR4fAh8gAiAhAiEiAiIjAiMlAiQnBCUoDiYqAicsBCgtDykuAiovAiswBCwzEC00Fi42Fy83FzA6FzE7FzI8FzM-FzRABDVBGDZDFzdFBDhGGTlHFzpIFztJBDxMGj1NHg"
+}
 config.compilerWasm = {
   getRuntime: async () => require('./query_compiler_fast_bg.js'),
   getQueryCompilerWasmModule: async () => {
