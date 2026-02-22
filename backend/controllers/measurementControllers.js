@@ -2,12 +2,8 @@ import { prisma } from '../prisma/lib/prisma.js';
 
 export async function createMeasurement (req, res, next) {
     try {
-        const userId = req.user.id;
+        const userId = req.user?.id;
         
-        if(!userId) {
-            return res.status(401).json({success: false, message: "Not authenticated"});
-        }
-         
         const {
             weight,
             waist,
@@ -18,7 +14,11 @@ export async function createMeasurement (req, res, next) {
             rightLeg,
             note
         } = req.body;
-    
+
+        if(!userId) {
+            return res.status(401).json({success: false, message: "Not authenticated"});
+        }
+         
         const log = await prisma.measurementLog.create({
             data: {
                 userId,
@@ -46,7 +46,7 @@ export async function createMeasurement (req, res, next) {
 
 export async function listMeasurement (req, res, next) {
     try {
-        const userId = req.user.id;
+        const userId = req.user?.id;
 
         if(!userId) {
             return res.status(401).json({success: false, message: "Not authenticated"});
@@ -57,7 +57,6 @@ export async function listMeasurement (req, res, next) {
             orderBy: { recordedAt: "desc" },
             take: 100,
         });
-
 
         return res.status(200).json({
             success: true,
@@ -71,9 +70,9 @@ export async function listMeasurement (req, res, next) {
     }
 }
 
-export async function getLatestLog (req, res, next) { // need to test this
+export async function getLatestLog (req, res, next) {
     try {
-        const userId = req.user.id;
+        const userId = req.user?.id;
 
         if(!userId) {
             return res.status(401).json({success: false, message: "Not authenticated"});
@@ -81,7 +80,7 @@ export async function getLatestLog (req, res, next) { // need to test this
 
         const log = await prisma.measurementLog.findFirst({
             where: { userId },
-            orderby: { recordedAt: "desc" },
+            orderBy: { recordedAt: "desc" },
         });
 
         return res.status(200).json({
@@ -97,17 +96,27 @@ export async function getLatestLog (req, res, next) { // need to test this
 
 export async function updateMeasurement (req, res, next) {
     try {
-        const userId = req.user.id;
-        const id = Number(res.params.id);
+        const userId = req.user?.id;
+        const id = Number(req.params.id);
+
+        const {
+            weight,
+            waist,
+            chest,
+            leftArm,
+            rightArm,
+            leftLeg,
+            rightLeg,
+            note
+        } = req.body;
 
         if(!userId) {
             return res.status(401).json({success: false, message: "Not authenticated"});
         }
 
-        const logUpdate = await prisma.measurementLog.update({
+        const logUpdate = await prisma.measurementLog.updateMany({
             where: { userId, id },
             data: {
-                userId,
                 weight,
                 waist,
                 chest,
@@ -118,6 +127,11 @@ export async function updateMeasurement (req, res, next) {
                 note
             }
         });
+
+        if (result.count === 0) {
+            return res.status(404).json({ success: false, message: "Log not found" });
+        }
+
         return res.status(200).json({ success: true, message: "Log updated", logUpdate });
     } catch( error ) {
         console.error(error);
@@ -128,8 +142,8 @@ export async function updateMeasurement (req, res, next) {
 export async function deleteMeasurement (req, res, next) {
     try {
         const userId = req.user.id;
-        const id = req.params.id;
-
+        const id = Number(req.params.id);
+        
         if(!userId) {
             return res.status(401).json({success: false, message: "Not authenticated"});
         }
