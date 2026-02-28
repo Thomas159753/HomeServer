@@ -1,5 +1,6 @@
 import MainTemplate from "./components/templates/mainTemplate";
 import HomePage from "./routes/homePage/homePage";
+import LogInForm from "./routes/login/login";
 
 const routes = [
     {
@@ -7,6 +8,13 @@ const routes = [
         element: <MainTemplate />,
         children:[
             {index: true, element: <HomePage />},
+        ]
+    },
+    {
+        path: "logIn",
+        element: <MainTemplate />,
+        children:[
+            {index: true, element: <LogInForm />}
         ]
     }
 ]
