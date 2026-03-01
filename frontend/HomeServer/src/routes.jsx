@@ -1,6 +1,7 @@
 import MainTemplate from "./components/templates/mainTemplate";
 import HomePage from "./routes/homePage/homePage";
-import LogInForm from "./routes/login/login";
+import LogIn from "./routes/login/login";
+import Register from "./routes/register/register"
 
 const routes = [
     {
@@ -14,7 +15,14 @@ const routes = [
         path: "logIn",
         element: <MainTemplate />,
         children:[
-            {index: true, element: <LogInForm />}
+            {index: true, element: <LogIn />}
+        ]
+    },
+    {
+        path: "register",
+        element: <MainTemplate/>,
+        children:[
+            {index: true, element: <Register />}
         ]
     }
 ]
